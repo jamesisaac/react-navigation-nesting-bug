@@ -1,19 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import AuthContext from "./AuthContext";
+import RootModalStackNavigator from "./navigation/RootModalStackNavigator";
+import MainStackNavigator from "./navigation/MainStackNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <AuthContext.Provider value={{ loggedIn, setLoggedIn }}>
+        <RootModalStackNavigator loggedIn={loggedIn} />
+
+        {/* This would work, but loses ability to create modals: */}
+        {/* <MainStackNavigator loggedIn={loggedIn} /> */}
+      </AuthContext.Provider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
